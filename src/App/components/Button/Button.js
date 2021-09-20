@@ -8,11 +8,11 @@ function Button(props) {
   console.log(props);
   return (
     <button
-      className={clicked ? styles.Button+' '+styles.clicked : styles.Button}
+      className={clicked ? `${styles.Button} ${styles.clicked}` : styles.Button}
       onClick={(evt)=>{
         setClicked(true);
         props.onLeftClick(evt);
-        setTimeout(()=>{setClicked(false)},1300);
+        setTimeout(()=>{setClicked(false)},300);
       }}
       type={props.type}
       style={ {...props.style,backgroundColor:props.backgroundColor, color:props.color} }
