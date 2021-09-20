@@ -7,11 +7,14 @@ function App() {
     <div className="App">
       DEMAT breizh
       <hr/>
-      <Button>
-        <div>jsdnj</div>
-        <div>ldscnoklds</div>
-      </Button> <Button text="click moi dessus"/>
-      <Button />
+      <Button onLeftClick={(arg)=>{
+        console.log(arg);
+      }}>
+        <div>Mon button</div>
+      </Button> 
+      <Button/>
+      <Button >Demat Bretagne</Button>
+      <Button onLeftClick={()=>{}} />
     </div>
   )
 }
