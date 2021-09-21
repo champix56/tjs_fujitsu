@@ -1,22 +1,27 @@
 import React from 'react';
 import './App.css';
-import Button from './components/Button/Button';
-import Button2 from './components/Buttonts/Button';
+import MemeViewer from './components/MemeViewer/MemeViewer';
 
 function App() {
   return (
     <div className="App">
-      DEMAT breizh
-      <hr/>
-      <Button onLeftClick={(evt)=>{
-        console.log(evt);
-      }} backgroundColor="tomato">
-        <div>Mon button</div>
-      </Button> 
-      <Button/>
-      <Button2 >Demat Bretagne</Button2>
-      <Button  backgroundColor="white" color="darkblue" style={{textDecoration:'underline', fontStyle:'italic'}}  >Demat Bretagne</Button>
-      <Button backgroundColor="yellowgreen" onLeftClick={()=>{}} />
+      <MemeViewer meme={
+        {
+          name: 'Bienvenu en bretagne',
+          x: 100, y: 420,
+          text: 'Degemer mat im breizh',
+          color:'pink',
+          fontSize:40,
+          fontWeight:900,
+          italic:false,
+          underline:true,
+          image: {
+            url: '/img/meme/gwenhadu.jpg',
+            w: 1200,
+            h: 900
+          }
+        }
+      } />
     </div>
   )
 }
