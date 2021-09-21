@@ -22,9 +22,10 @@ interface MemeViewerProps{
   }
 }
 const MemeViewer = (props:MemeViewerProps) => {
+  const img= props.meme.image?props.meme.image:{w:1000, h:1000,url:''}
   return (
-  <svg className={styles.MemeViewer} data-testid="MemeViewer" viewBox={`0 0 ${props.meme.image.w} ${props.meme.image.h}`}>
-    <image href={props.meme.image.url}/>
+  <svg className={styles.MemeViewer} data-testid="MemeViewer" viewBox={`0 0 ${img.w} ${img.h}`}>
+    <image href={img.url}/>
     <text 
     x={props.meme.x} 
     y={props.meme.y}
