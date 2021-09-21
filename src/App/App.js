@@ -68,7 +68,9 @@ class App extends React.Component {
     super(props);
   }
   render() {
-    return <div className={styles.App}></div>;
+    return <div className={styles.App}>
+      
+    </div>;
   }
 }
 
