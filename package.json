@@ -23,10 +23,12 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
 
-    "cmp-layout":"npx generate-react-cli c --type=layout", 
-    "cmp-ui":"npx generate-react-cli c --type=ui",
-    "cmp-class":"npx generate-react-cli c --type=class",
-    "cmp-func":"npx generate-react-cli c --type=function" 
+    "cmp-layout": "npx generate-react-cli c --type=layout",
+    "cmp-ui": "npx generate-react-cli c --type=ui",
+    "cmp-class": "npx generate-react-cli c --type=class",
+    "cmp-func": "npx generate-react-cli c --type=function",
+
+    "rest": "json-server -p 5679 db/db.json"
   },
   "eslintConfig": {
     "extends": [
@@ -45,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "json-server": "^0.16.3"
   }
 }
