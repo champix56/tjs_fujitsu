@@ -1,0 +1,9 @@
+.FlexLayout{
+    display: flex;
+    height: 85vh;
+    width:100%
+}
+.FlexLayout>*:first-child{
+    flex-grow:1 ;
+
+}
