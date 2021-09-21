@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./App.module.css";
+import ThumbnailLayout from "./components/layout/ThumbnailLayout/ThumbnailLayout";
+import MemeViewer from "./components/MemeViewer/MemeViewer";
 const initialState = {
   memes: [
     {
@@ -50,9 +52,9 @@ const initialState = {
     },
     {
       id: 1,
-      url: "/img/meme/animals.jpg",
-      w: 640,
-      h: 400,
+      url: "/img/meme/cow.jpg",
+      w: 700,
+      h: 466,
     },
     {
       id:2,
@@ -64,12 +66,22 @@ const initialState = {
 };
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+    this.state=initialState;
   }
   render() {
     return <div className={styles.App}>
-      
+      <ThumbnailLayout>
+        {
+          this.state.memes.map((e,i)=>{
+            return <MemeViewer key={`meme-${i}`} meme={{
+                ...e,
+                image:this.state.images.find(ef=>ef.id===e.imageId)
+              }}/>
+          })
+        }
+      </ThumbnailLayout>
     </div>;
   }
 }

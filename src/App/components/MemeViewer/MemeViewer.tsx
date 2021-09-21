@@ -13,6 +13,7 @@ interface MemeViewerProps{
     underline:boolean,
     italic:boolean,
     color:string,
+    imageId:number,
     image:{
       url:string,
       w:number,
