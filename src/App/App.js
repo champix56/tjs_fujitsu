@@ -5,6 +5,7 @@ import ThumbnailLayout from "./components/layout/ThumbnailLayout/ThumbnailLayout
 import MemeEditor from "./components/MemeEditor/MemeEditor";
 import MemeViewer from "./components/MemeViewer/MemeViewer";
 import { RESSOURCES, REST_ADR } from "./config/config";
+import store from './store/store'
 const initialState = {
   memes: [],
   current: {
