@@ -41,7 +41,7 @@ const initialState = {
     fontWeight: 900,
     italic: false,
     underline: true,
-    imageId:2,
+    imageId: 2,
   },
   images: [
     {
@@ -57,32 +57,40 @@ const initialState = {
       h: 466,
     },
     {
-      id:2,
+      id: 2,
       url: "/img/meme/gwenhadu.jpg",
       w: 1200,
       h: 900,
-    }
+    },
   ],
 };
 
 class App extends React.Component {
   constructor() {
     super();
-    this.state=initialState;
+    this.state = initialState;
   }
   render() {
-    return <div className={styles.App}>
-      <ThumbnailLayout>
-        {
-          this.state.memes.map((e,i)=>{
-            return <MemeViewer key={`meme-${i}`} meme={{
-                ...e,
-                image:this.state.images.find(ef=>ef.id===e.imageId)
-              }}/>
-          })
-        }
-      </ThumbnailLayout>
-    </div>;
+    return (
+      <>
+        <div className={styles.App}>
+          <ThumbnailLayout>
+            {this.state.memes.map((e, i) => {
+              return (
+                <MemeViewer
+                  key={`meme-${i}`}
+                  meme={{
+                    ...e,
+                    image: this.state.images.find((ef) => ef.id === e.imageId),
+                  }}
+                />
+              );
+            })}
+          </ThumbnailLayout>
+        </div>
+        <div>{JSON.stringify(this.state)}</div>
+      </>
+    );
   }
 }
 
