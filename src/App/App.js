@@ -2,35 +2,9 @@ import React from "react";
 import styles from "./App.module.css";
 import ThumbnailLayout from "./components/layout/ThumbnailLayout/ThumbnailLayout";
 import MemeViewer from "./components/MemeViewer/MemeViewer";
+import { RESSOURCES, REST_ADR } from "./config/config";
 const initialState = {
-  memes: [
-    {
-      id: 0,
-      name: "react fun",
-      x: 100,
-      y: 420,
-      text: "React is fun",
-      color: "pink",
-      fontSize: 40,
-      fontWeight: 900,
-      italic: false,
-      underline: true,
-      imageId: 0,
-    },
-    {
-      id: 1,
-      name: "react fun",
-      x: 100,
-      y: 420,
-      text: "React of clients is not fun",
-      color: "pink",
-      fontSize: 40,
-      fontWeight: 900,
-      italic: false,
-      underline: true,
-      imageId: 1,
-    },
-  ],
+  memes: [],
   current: {
     name: "welcome en bretagne",
     x: 100,
@@ -43,32 +17,33 @@ const initialState = {
     underline: true,
     imageId: 2,
   },
-  images: [
-    {
-      id: 0,
-      url: "/img/meme/animals.jpg",
-      w: 1024,
-      h: 682,
-    },
-    {
-      id: 1,
-      url: "/img/meme/cow.jpg",
-      w: 700,
-      h: 466,
-    },
-    {
-      id: 2,
-      url: "/img/meme/gwenhadu.jpg",
-      w: 1200,
-      h: 900,
-    },
-  ],
+  images: [],
 };
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = initialState;
+  }
+  componentDidMount() {
+    const p1 = fetch(`${REST_ADR}${RESSOURCES.memes}`).then((f) => f.json());
+    /*
+    //si pas synchronisé par Promise.all
+    .then(arr=>{
+        this.setState({memes:arr});
+        return arr;
+      })*/
+    const p2 = fetch(`${REST_ADR}${RESSOURCES.images}`).then((f) => f.json());
+    /*
+    //si pas synchronisé par Promise.all
+    .then(arr=>{
+        this.setState({images:arr});
+        return arr;
+      })*/
+    Promise.all([p1, p2]).then((fs) => {
+      console.log(fs);
+      this.setState({ memes: fs[0], images: fs[1] });
+    });
   }
   render() {
     return (
