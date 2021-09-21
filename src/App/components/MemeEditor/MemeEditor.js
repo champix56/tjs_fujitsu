@@ -22,7 +22,17 @@ const MemeEditor = (props) => {
         />
         <hr />
         <h3>Image</h3>
-        <select></select>
+        <select
+          value={props.meme.imageId}
+          onChange={(evt) => {
+            console.log(evt.target.value);
+            props.onFormChange({ ...props.meme, imageId: Number(evt.target.value) });
+          }}
+        >
+          {props.images.map((e, i) => (
+            <option key={"image-"+i} value={e.id}>{e.url}</option>
+          ))}
+        </select>
         <hr />
         <h3>Text</h3>
         <input
@@ -111,7 +121,7 @@ const MemeEditor = (props) => {
               underline: evt.target.checked,
             });
           }}
-        />{" "}
+        />
         <label htmlFor="weight">
           <i>italic:</i>
         </label>
