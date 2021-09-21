@@ -1,18 +1,52 @@
+import { createStore } from "redux";
+import { RESSOURCES, REST_ADR } from "../config/config";
+const memeInitialState = {
+  memes: [],
+  images: [],
+};
+export const MEME_ACTIONS = Object.freeze({
+  ADD_MEME: "ADD_MEME",
+  ADD_MEMES: "ADD_MEMES",
+  ADD_IMAGES: "ADD_IMAGES",
+});
+const MEME_ACTIONS_PRIVATE = Object.freeze({
+  INIT: "INIT",
+  UPDT_INIT_VALUES: "UPDT_INIT_VALUES",
+});
+function memeReducer(state = memeInitialState, action) {
+  console.log(action.type);
+  switch (action.type) {
+    //   public actions
+    case MEME_ACTIONS.ADD_MEMES:
+      return { ...state, memes: action.values };
+    case MEME_ACTIONS.ADD_MEME:
+      return { ...state, memes: [...state.memes, action.value] };
+    case MEME_ACTIONS.ADD_IMAGES:
+      return { ...state, images: action.values };
 
-const memeInitialState={
-    memes:[],
-    images:[]
+    //   private actions
+    case MEME_ACTIONS_PRIVATE.UPDT_INIT_VALUES:
+      return { ...state, memes: action.values.memes, images: action.values.images };
+    case MEME_ACTIONS_PRIVATE.INIT:
+      const p1 = fetch(`${REST_ADR}${RESSOURCES.memes}`).then((f) => f.json());
+      const p2 = fetch(`${REST_ADR}${RESSOURCES.images}`).then((f) => f.json());
+
+      Promise.all([p1, p2]).then((values) => {
+        store.dispatch({
+          type: MEME_ACTIONS_PRIVATE.UPDT_INIT_VALUES,
+          values: { memes: values[0], images: values[1] },
+        });
+      });
+      return state;
+    default:
+      return state;
+  }
 }
-function memeReducer(state=memeInitialState,action) {
-    switch (action.type) {
-        case 'ADD_MEMES':
-            return {...state, memes:action.values}
-        
-        default:
-            return state;
-    }
-}
-let state=memeReducer(undefined,{type:'INIT'});
-console.log(state );
-state=memeReducer(state,{type:'ADD_MEMES',values:JSON.parse('[{"id":0,"name":"react fun","x":100,"y":420,"text":"React is fun","color":"pink","fontSize":40,"fontWeight":900,"italic":false,"underline":true,"imageId":0},{"id":1,"name":"react fun","x":100,"y":420,"text":"React of clients is not fun","color":"pink","fontSize":40,"fontWeight":900,"italic":false,"underline":true,"imageId":1}]')});
-console.log(state );
+const store = createStore(memeReducer);
+
+store.subscribe(() => {
+  console.log(store.getState());
+});
+
+store.dispatch({type: MEME_ACTIONS_PRIVATE.INIT});
+export default store;
