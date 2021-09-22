@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./MemeEditor.module.css";
 import Button from "../Button/Button";
+import store, {
+  currentInitialState,
+  CURRENT_MEME_ACTION,
+  memeInitialState,
+} from "../../store/store";
 
-const memeEditorInitialState = {};
 const MemeEditor = (props) => {
-  //const [state, setstate] = useState(memeEditorInitialState);
+  const [images, setimages] = useState(memeInitialState.images);
+  const [current, setcurrent] = useState(currentInitialState);
+  useEffect(() => {
+    setcurrent(store.getState().current);
+    setimages(store.getState().lists.images);
+    store.subscribe(() => {
+      setimages(store.getState().lists.images);
+    });
+  }, []);
+
+  useEffect(() => {
+    store.dispatch({ type: CURRENT_MEME_ACTION.UPDT_CURRENT, value: current });
+  }, [current]);
   return (
     <div className={styles.MemeEditor} data-testid="MemeEditor">
       <form>
@@ -14,23 +30,27 @@ const MemeEditor = (props) => {
         <input
           type="text"
           id="name"
-          value={props.meme.name}
+          value={current.name}
           onChange={(evt) => {
             console.log(evt.target.value);
-            props.onFormChange({ ...props.meme, name: evt.target.value });
+            setcurrent({ ...current, name: evt.target.value });
           }}
         />
         <hr />
         <h3>Image</h3>
         <select
-          value={props.meme.imageId}
+          value={current.imageId}
           onChange={(evt) => {
             console.log(evt.target.value);
-            props.onFormChange({ ...props.meme, imageId: Number(evt.target.value) });
+            setcurrent({ ...current,
+              imageId: Number(evt.target.value),
+            });
           }}
         >
-          {props.images.map((e, i) => (
-            <option key={"image-"+i} value={e.id}>{e.url}</option>
+          {images.map((e, i) => (
+            <option key={"image-" + i} value={e.id}>
+              {e.url}
+            </option>
           ))}
         </select>
         <hr />
@@ -38,10 +58,10 @@ const MemeEditor = (props) => {
         <input
           type="text"
           placeholder="text du meme"
-          value={props.meme.text}
+          value={current.text}
           onChange={(evt) => {
             console.log(evt.target.value);
-            props.onFormChange({ ...props.meme, text: evt.target.value });
+            setcurrent({ ...current, text: evt.target.value });
           }}
         />
         <h4>position</h4>
@@ -49,20 +69,20 @@ const MemeEditor = (props) => {
         <input
           type="number"
           className={styles.smallInput}
-          value={props.meme.x}
+          value={current.x}
           onChange={(evt) => {
             console.log(evt.target.value);
-            props.onFormChange({ ...props.meme, x: Number(evt.target.value) });
+            setcurrent({ ...current, x: Number(evt.target.value) });
           }}
         />
         <label htmlFor="y">y:</label>
         <input
           type="number"
           className={styles.smallInput}
-          value={props.meme.y}
+          value={current.y}
           onChange={(evt) => {
             console.log(evt.target.value);
-            props.onFormChange({ ...props.meme, y: Number(evt.target.value) });
+            setcurrent({ ...current, y: Number(evt.target.value) });
           }}
         />
         <hr />
@@ -72,10 +92,10 @@ const MemeEditor = (props) => {
         <input
           type="color"
           className={styles.smallInput}
-          value={props.meme.color}
+          value={current.color}
           onChange={(evt) => {
             console.log(evt.target.value);
-            props.onFormChange({ ...props.meme, color: evt.target.value });
+            setcurrent({ ...current, color: evt.target.value });
           }}
         />
         <h3>Dimensions</h3>
@@ -84,11 +104,10 @@ const MemeEditor = (props) => {
           type="number"
           className={styles.smallInput}
           min="0"
-          value={props.meme.fontSize}
+          value={current.fontSize}
           onChange={(evt) => {
             console.log(evt.target.value);
-            props.onFormChange({
-              ...props.meme,
+            setcurrent({ ...current, 
               fontSize: Number(evt.target.value),
             });
           }}
@@ -100,10 +119,10 @@ const MemeEditor = (props) => {
           max="900"
           step="100"
           className={styles.smallInput}
-          value={props.meme.fontWeight}
+          value={current.fontWeight}
           onChange={(evt) => {
             console.log(evt.target.value);
-            props.onFormChange({ ...props.meme, fontWeight: evt.target.value });
+            setcurrent({ ...current, fontWeight: evt.target.value });
           }}
         />
         <h3>Decoration</h3>
@@ -113,11 +132,10 @@ const MemeEditor = (props) => {
         <input
           type="checkbox"
           className={styles.smallInput}
-          checked={props.meme.underline}
+          checked={current.underline}
           onChange={(evt) => {
             console.log(evt.target.value);
-            props.onFormChange({
-              ...props.meme,
+            setcurrent({ ...current,
               underline: evt.target.checked,
             });
           }}
@@ -128,10 +146,11 @@ const MemeEditor = (props) => {
         <input
           type="checkbox"
           className={styles.smallInput}
-          checked={props.meme.italic}
+          checked={current.italic}
           onChange={(evt) => {
             console.log(evt.target.value);
-            props.onFormChange({ ...props.meme, italic: evt.target.checked });
+            setcurrent({ ...current, italic: evt.target.checked });
+            // store.dispatch({type: CURRENT_MEME_ACTION.UPDT_CURRENT, value:{}})
           }}
         />
         <hr />
