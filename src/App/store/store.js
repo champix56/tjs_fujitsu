@@ -69,10 +69,12 @@ const currentReducer = (state = currentInitialState, action) => {
     case CURRENT_MEME_ACTION.CLEAR_CURRENT:
       return { currentInitialState };
     case CURRENT_MEME_ACTION.SAVE_CURRENT:
-      fetch(`${REST_ADR}${RESSOURCES.memes}${state.id ? "/" + state.id : ""}`, {
+      const fetchConfig={
         headers: { "Content-Type": "application/json" },
         method: `${state.id ? "PUT" : "POST"}`,
-      }).then(
+        body:JSON.stringify(state)
+      }
+      fetch(`${REST_ADR}${RESSOURCES.memes}${state.id ? "/" + state.id : ""}`,fetchConfig ).then(
         (f) => {
           store.dispatch({ type: CURRENT_MEME_ACTION.CLEAR_CURRENT });
         },
