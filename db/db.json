@@ -14,11 +14,23 @@
       "imageId": 0
     },
     {
+      "currentInitialState": {
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "text": "",
+        "color": "#000",
+        "fontSize": 10,
+        "fontWeight": 100,
+        "italic": false,
+        "underline": false,
+        "imageId": -1
+      },
       "id": 1,
       "name": "react fun",
       "x": 100,
       "y": 420,
-      "text": "React of clients is not fun",
+      "text": "React of clients is ndddot fun",
       "color": "pink",
       "fontSize": 40,
       "fontWeight": 900,
@@ -27,7 +39,66 @@
       "imageId": 1
     },
     {
-      "id": 2
+      "name": "",
+      "x": 20,
+      "y": 69,
+      "text": "je m'occupe du CSS",
+      "color": "#000",
+      "fontSize": 78,
+      "fontWeight": "900",
+      "italic": true,
+      "underline": true,
+      "imageId": 9,
+      "id": 2,
+      "currentInitialState": {
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "text": "",
+        "color": "#000",
+        "fontSize": 10,
+        "fontWeight": 100,
+        "italic": false,
+        "underline": false,
+        "imageId": -1
+      }
+    },
+    {
+      "name": "react fun",
+      "x": 100,
+      "y": 420,
+      "text": "React is super fun",
+      "color": "#814646",
+      "fontSize": 40,
+      "fontWeight": 900,
+      "italic": false,
+      "underline": true,
+      "imageId": 0,
+      "id": 3
+    },
+    {
+      "currentInitialState": {
+        "name": "",
+        "x": 0,
+        "y": 0,
+        "text": "",
+        "color": "#000",
+        "fontSize": 10,
+        "fontWeight": 100,
+        "italic": false,
+        "underline": false,
+        "imageId": -1
+      },
+      "name": "edrtyu",
+      "imageId": 5,
+      "text": "J'avais oublier redux pour les routes",
+      "y": 54,
+      "fontSize": 40,
+      "x": 11,
+      "italic": true,
+      "fontWeight": "700",
+      "id": 4,
+      "color": "#b50d0d"
     }
   ],
   "images": [

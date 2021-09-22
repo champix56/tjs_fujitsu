@@ -7,6 +7,8 @@ import store, {
   CURRENT_MEME_ACTION,
   memeInitialState,
 } from "../../store/store";
+import { useLocation } from 'react-router-dom'
+
 
 const MemeEditor = (props) => {
   const [images, setimages] = useState(memeInitialState.images);
@@ -16,18 +18,20 @@ const MemeEditor = (props) => {
     setimages(store.getState().lists.images);
     store.subscribe(() => {
       setimages(store.getState().lists.images);
+     setcurrent(store.getState().current);
+
     });
   }, []);
 
-  useEffect(() => {
-    store.dispatch({ type: CURRENT_MEME_ACTION.UPDT_CURRENT, value: current });
-  }, [current]);
+  // useEffect(() => {
+  //   store.dispatch({ type: CURRENT_MEME_ACTION.UPDT_CURRENT, value: current });
+  // }, [current]);
   return (
     <div className={styles.MemeEditor} data-testid="MemeEditor">
       <form onSubmit={(evt)=>{
           evt.preventDefault();
           store.dispatch({type:CURRENT_MEME_ACTION.SAVE_CURRENT});
-      }}>
+      }} >
         <label htmlFor="name">Meme name</label>
         <br />
         <input
@@ -36,7 +40,8 @@ const MemeEditor = (props) => {
           value={current.name}
           onChange={(evt) => {
             console.log(evt.target.value);
-            setcurrent({ ...current, name: evt.target.value });
+            store.dispatch({ type: CURRENT_MEME_ACTION.UPDT_CURRENT, value: { ...current, name: evt.target.value } });
+            //setcurrent({ ...current, name: evt.target.value });
           }}
         />
         <hr />
@@ -45,9 +50,9 @@ const MemeEditor = (props) => {
           value={current.imageId}
           onChange={(evt) => {
             console.log(evt.target.value);
-            setcurrent({ ...current,
+            store.dispatch({ type: CURRENT_MEME_ACTION.UPDT_CURRENT, value: { ...current,
               imageId: Number(evt.target.value),
-            });
+            }});
           }}
         >
           {images.map((e, i) => (
@@ -64,7 +69,8 @@ const MemeEditor = (props) => {
           value={current.text}
           onChange={(evt) => {
             console.log(evt.target.value);
-            setcurrent({ ...current, text: evt.target.value });
+            store.dispatch({ type: CURRENT_MEME_ACTION.UPDT_CURRENT, value: { ...current, text: evt.target.value} });
+           
           }}
         />
         <h4>position</h4>
@@ -75,7 +81,7 @@ const MemeEditor = (props) => {
           value={current.x}
           onChange={(evt) => {
             console.log(evt.target.value);
-            setcurrent({ ...current, x: Number(evt.target.value) });
+            store.dispatch({ type: CURRENT_MEME_ACTION.UPDT_CURRENT, value: { ...current,x: Number(evt.target.value) }});
           }}
         />
         <label htmlFor="y">y:</label>
@@ -85,7 +91,7 @@ const MemeEditor = (props) => {
           value={current.y}
           onChange={(evt) => {
             console.log(evt.target.value);
-            setcurrent({ ...current, y: Number(evt.target.value) });
+            store.dispatch({ type: CURRENT_MEME_ACTION.UPDT_CURRENT, value: { ...current, y: Number(evt.target.value) }});
           }}
         />
         <hr />
@@ -98,7 +104,7 @@ const MemeEditor = (props) => {
           value={current.color}
           onChange={(evt) => {
             console.log(evt.target.value);
-            setcurrent({ ...current, color: evt.target.value });
+            store.dispatch({ type: CURRENT_MEME_ACTION.UPDT_CURRENT, value: { ...current, color: evt.target.value }});
           }}
         />
         <h3>Dimensions</h3>
@@ -110,9 +116,9 @@ const MemeEditor = (props) => {
           value={current.fontSize}
           onChange={(evt) => {
             console.log(evt.target.value);
-            setcurrent({ ...current, 
+            store.dispatch({ type: CURRENT_MEME_ACTION.UPDT_CURRENT, value: { ...current,
               fontSize: Number(evt.target.value),
-            });
+            }});
           }}
         />
         <label htmlFor="weight">weight:</label>
@@ -125,7 +131,7 @@ const MemeEditor = (props) => {
           value={current.fontWeight}
           onChange={(evt) => {
             console.log(evt.target.value);
-            setcurrent({ ...current, fontWeight: evt.target.value });
+            store.dispatch({ type: CURRENT_MEME_ACTION.UPDT_CURRENT, value: { ...current, fontWeight: evt.target.value }});
           }}
         />
         <h3>Decoration</h3>
@@ -138,9 +144,9 @@ const MemeEditor = (props) => {
           checked={current.underline}
           onChange={(evt) => {
             console.log(evt.target.value);
-            setcurrent({ ...current,
+            store.dispatch({ type: CURRENT_MEME_ACTION.UPDT_CURRENT, value: { ...current,
               underline: evt.target.checked,
-            });
+             } });
           }}
         />
         <label htmlFor="weight">
@@ -152,7 +158,7 @@ const MemeEditor = (props) => {
           checked={current.italic}
           onChange={(evt) => {
             console.log(evt.target.value);
-            setcurrent({ ...current, italic: evt.target.checked });
+            store.dispatch({ type: CURRENT_MEME_ACTION.UPDT_CURRENT, value: { ...current, italic: evt.target.checked }});
             // store.dispatch({type: CURRENT_MEME_ACTION.UPDT_CURRENT, value:{}})
           }}
         />
