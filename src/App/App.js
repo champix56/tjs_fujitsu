@@ -16,6 +16,9 @@ class App extends React.Component {
               <h1>Degemer mat im breizh meme generator</h1>
               <img src="/img/accueil.jpg" style={{height:'calc( 100% - 150px )'}} />
             </Route>
+            <Route path="/editor/:id">
+              <MemeCreator />
+            </Route>
             <Route path="/editor">
               <MemeCreator />
             </Route>
