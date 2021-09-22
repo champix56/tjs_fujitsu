@@ -1,11 +1,7 @@
 import React from "react";
 import styles from "./App.module.css";
-import FlexLayout from "./components/FlexLayout/FlexLayout";
-import ThumbnailLayout from "./components/layout/ThumbnailLayout/ThumbnailLayout";
-import MemeEditor from "./components/MemeEditor/MemeEditor";
-import MemeViewer from "./components/MemeViewer/MemeViewer";
 import Navbar from "./components/Navbar/Navbar";
-import { RESSOURCES, REST_ADR } from "./config/config";
+import MemeCreator from "./pages/MemeCreator/MemeCreator";
 import store, { currentInitialState, memeInitialState } from "./store/store";
 const initialState = {
   current: currentInitialState,
@@ -28,17 +24,10 @@ class App extends React.Component {
       <>
         <div className={styles.App}>
           <Navbar/>
-          <FlexLayout>
-            <MemeViewer
-              meme={{
-                ...this.state.current,
-                image: this.state.images.find(
-                  (e) => e.id === this.state.current.imageId
-                ),
-              }}
-            />
-            <MemeEditor />
-          </FlexLayout>
+
+
+          <MemeCreator/>
+        
         </div>
         <div>{JSON.stringify(this.state)}</div>
       </>
