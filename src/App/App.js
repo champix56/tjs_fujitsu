@@ -4,6 +4,7 @@ import FlexLayout from "./components/FlexLayout/FlexLayout";
 import ThumbnailLayout from "./components/layout/ThumbnailLayout/ThumbnailLayout";
 import MemeEditor from "./components/MemeEditor/MemeEditor";
 import MemeViewer from "./components/MemeViewer/MemeViewer";
+import Navbar from "./components/Navbar/Navbar";
 import { RESSOURCES, REST_ADR } from "./config/config";
 import store, { currentInitialState, memeInitialState } from "./store/store";
 const initialState = {
@@ -26,6 +27,7 @@ class App extends React.Component {
     return (
       <>
         <div className={styles.App}>
+          <Navbar/>
           <FlexLayout>
             <MemeViewer
               meme={{
