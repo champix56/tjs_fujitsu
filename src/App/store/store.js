@@ -1,6 +1,6 @@
-import { createStore } from "redux";
+import { combineReducers, createStore } from "redux";
 import { RESSOURCES, REST_ADR } from "../config/config";
-const memeInitialState = {
+export const memeInitialState = {
   memes: [],
   images: [],
 };
@@ -26,7 +26,11 @@ function memeReducer(state = memeInitialState, action) {
 
     //   private actions
     case MEME_ACTIONS_PRIVATE.UPDT_INIT_VALUES:
-      return { ...state, memes: action.values.memes, images: action.values.images };
+      return {
+        ...state,
+        memes: action.values.memes,
+        images: action.values.images,
+      };
     case MEME_ACTIONS_PRIVATE.INIT:
       const p1 = fetch(`${REST_ADR}${RESSOURCES.memes}`).then((f) => f.json());
       const p2 = fetch(`${REST_ADR}${RESSOURCES.images}`).then((f) => f.json());
@@ -42,11 +46,54 @@ function memeReducer(state = memeInitialState, action) {
       return state;
   }
 }
-const store = createStore(memeReducer);
+
+export const currentInitialState = {
+  name: "",
+  x: 0,
+  y: 0,
+  text: "",
+  color: "#000",
+  fontSize: 10,
+  fontWeight: 100,
+  italic: false,
+  underline: false,
+  imageId: -1,
+};
+export const CURRENT_MEME_ACTION = Object.freeze({
+  UPDT_CURRENT: "UPDT_CURRENT",
+  SAVE_CURRENT: "SAVE_CURRENT",
+  CLEAR_CURRENT: "CLEAR_CURRENT",
+});
+const currentReducer = (state = currentInitialState, action) => {
+  switch (action.type) {
+    case CURRENT_MEME_ACTION.CLEAR_CURRENT:
+      return { currentInitialState };
+    case CURRENT_MEME_ACTION.SAVE_CURRENT:
+      fetch(`${REST_ADR}${RESSOURCES.memes}${state.id ? "/" + state.id : ""}`, {
+        headers: { "Content-Type": "application/json" },
+        method: `${state.id ? "PUT" : "POST"}`,
+      }).then(
+        (f) => {
+          store.dispatch({ type: CURRENT_MEME_ACTION.CLEAR_CURRENT });
+        },
+        (f) => {}
+      );
+      return state;
+    case CURRENT_MEME_ACTION.UPDT_CURRENT:
+      return { ...state, ...action.value };
+    default:
+      return state;
+  }
+};
+
+const store = createStore(
+  combineReducers({ lists: memeReducer, current: currentReducer }),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 store.subscribe(() => {
   console.log(store.getState());
 });
 
-store.dispatch({type: MEME_ACTIONS_PRIVATE.INIT});
+store.dispatch({ type: MEME_ACTIONS_PRIVATE.INIT });
 export default store;
