@@ -35,6 +35,18 @@
         "test":"templatesGRC/hookFunction/TemplateName.test.js"
       }
     },
+    "page":{
+      "path": "src/App/pages",
+      "withStyle": true,
+      "withTest": true,
+      "withStory": false,
+      "withLazy": false,
+      "customTemplates":{
+        "component":"templatesGRC/hookFunction/TemplateName.js",
+        "style":"templatesGRC/hookFunction/TemplateName.module.css",
+        "test":"templatesGRC/hookFunction/TemplateName.test.js"
+      }
+    },
     "ui":{
       "path": "src/App/components/ui",
       "withStyle": true,

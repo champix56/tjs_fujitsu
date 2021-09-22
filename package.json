@@ -29,6 +29,7 @@
     "cmp-ui": "npx generate-react-cli c --type=ui",
     "cmp-class": "npx generate-react-cli c --type=class",
     "cmp-func": "npx generate-react-cli c --type=function",
+    "cmp-page": "npx generate-react-cli c --type=page",
     "rest": "json-server -p 5679 db/db.json"
   },
   "eslintConfig": {
